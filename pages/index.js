@@ -1,9 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
-import fetch from "isomorphic-unfetch";
 import { Flex, Box, Card } from "rebass/styled-components";
 import Table from "../components/Table";
-import mock from "../service/mock.json";
+import fetch from "../service";
 
 const Home = ({ items }) => (
   <Box mx={4}>
@@ -54,13 +53,18 @@ const Home = ({ items }) => (
 
 Home.getInitialProps = async () => {
   try {
-    // const response = await fetch("/service/mock.json");
-    // console.log(response);
+    const response = await fetch("/teams");
 
-    return { items: mock };
+    if (!response.ok) {
+      return { items: [] };
+    }
+
+    const json = await response.json();
+
+    return { items: json.filter(team => team.name).slice(0, 100) };
   } catch (error) {
-    console.log("ERROR:", error);
-    return {};
+    // Implementation or Network error
+    return { items: [] };
   }
 };
 
