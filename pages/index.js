@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Flex, Box, Card } from "rebass/styled-components";
 import Table from "../components/Table";
 import fetch from "../service";
+import { redirectToPage } from "../utils";
 
 const Home = ({ items }) => (
   <Box mx={4}>
@@ -51,7 +52,7 @@ const Home = ({ items }) => (
   </Box>
 );
 
-Home.getInitialProps = async () => {
+Home.getInitialProps = async ctx => {
   try {
     const response = await fetch("/teams");
 
@@ -63,8 +64,7 @@ Home.getInitialProps = async () => {
 
     return { items: json.filter(team => team.name).slice(0, 100) };
   } catch (error) {
-    // Implementation or Network error
-    return { items: [] };
+    return redirectToPage(ctx, "/error");
   }
 };
 

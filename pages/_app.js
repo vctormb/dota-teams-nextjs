@@ -17,7 +17,8 @@ const theme = {
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256],
   fonts: {
-    body: "'Roboto', sans-serif"
+    body: "'Roboto', sans-serif",
+    heading: "'Roboto', sans-serif"
   },
   fontWeights: {
     body: 400,
