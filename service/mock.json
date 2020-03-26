@@ -1,0 +1,72 @@
+[
+  {
+    "team_id": 2586976,
+    "rating": 1575.43,
+    "wins": 552,
+    "losses": 303,
+    "last_match_time": 1581438134,
+    "name": "OG",
+    "tag": "OG",
+    "logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/team_logos/2586976.png"
+  },
+  {
+    "team_id": 726228,
+    "rating": 1531.19,
+    "wins": 1052,
+    "losses": 685,
+    "last_match_time": 1580042698,
+    "name": "Vici Gaming",
+    "tag": "VG",
+    "logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/team_logos/726228.png"
+  },
+  {
+    "team_id": 1838315,
+    "rating": 1515.59,
+    "wins": 749,
+    "losses": 368,
+    "last_match_time": 1582489389,
+    "name": "Team Secret",
+    "tag": "Secret",
+    "logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/team_logos/1838315.png"
+  },
+  {
+    "team_id": 5228654,
+    "rating": 1450.04,
+    "wins": 79,
+    "losses": 36,
+    "last_match_time": 1535061995,
+    "name": "VGJ Storm",
+    "tag": "VGJ.Storm",
+    "logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/team_logos/5228654.png"
+  },
+  {
+    "team_id": 350190,
+    "rating": 1447.99,
+    "wins": 909,
+    "losses": 674,
+    "last_match_time": 1584135616,
+    "name": "Fnatic",
+    "tag": "Fnatic",
+    "logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/team_logos/350190.png"
+  },
+  {
+    "team_id": 5026801,
+    "rating": 1429.8,
+    "wins": 176,
+    "losses": 116,
+    "last_match_time": 1535053843,
+    "name": "",
+    "tag": "",
+    "logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/team_logos/5026801.png"
+  },
+  {
+    "team_id": 6209804,
+    "rating": 1429.62,
+    "wins": 157,
+    "losses": 126,
+    "last_match_time": 1581848180,
+    "name": "Royal Never Give Up",
+    "tag": "RNG",
+    "logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/team_logos/6209804.png"
+  }
+]
