@@ -1,3 +1,1 @@
-import Team from "../../screens/Team";
-
-export default Team;
+export { default } from "../../screens/Team";

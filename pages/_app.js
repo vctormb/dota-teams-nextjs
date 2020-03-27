@@ -2,50 +2,11 @@ import App from "next/app";
 import Head from "next/head";
 import React from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { Box } from "rebass/styled-components";
 // components
 import Navbar from "../components/Navbar";
-
-const theme = {
-  breakpoints: ["40em", "52em", "64em"],
-  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
-  colors: {
-    white: "#eeeeee",
-    whiteopaque: "rgba(255, 255, 255, 0.6)",
-    blue: "#222d4a",
-    darkblue: "#162329",
-    lightblue: "#66bbff"
-  },
-  space: [0, 4, 8, 16, 32, 64, 128, 256],
-  fonts: {
-    body: "'Roboto', sans-serif",
-    heading: "'Roboto', sans-serif"
-  },
-  fontWeights: {
-    body: 400,
-    heading: 700,
-    bold: 700
-  },
-  lineHeights: {
-    body: 1.5,
-    heading: 1.25
-  },
-  shadows: {
-    medium: "0 3px 11px rgba(0, 0, 0, .2)"
-  },
-  variants: {
-    card: {
-      bg: "rgba(255, 255, 255, 0.04)",
-      boxShadow: "medium"
-    }
-  },
-  text: {},
-  buttons: {
-    primary: {
-      color: "white",
-      bg: "primary"
-    }
-  }
-};
+// css
+import theme from "../css/theme";
 
 const GlobalStyle = createGlobalStyle`
   *, *:after, *:before {
@@ -79,9 +40,13 @@ class MyApp extends App {
         </Head>
         <ThemeProvider theme={theme}>
           <Navbar>Header</Navbar>
-          <main style={{ margin: "32px 0" }}>
-            <Component {...pageProps} />
-          </main>
+          <Box my={4} mx="auto" maxWidth="1200px">
+            <Box mx={4}>
+              <main>
+                <Component {...pageProps} />
+              </main>
+            </Box>
+          </Box>
           <GlobalStyle />
         </ThemeProvider>
       </>

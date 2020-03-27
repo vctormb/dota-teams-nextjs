@@ -1,14 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
-import { Flex, Box, Card } from "rebass/styled-components";
+import { Flex, Card } from "rebass/styled-components";
 import Table from "../../components/Table";
 import fetch from "../../service";
 import { redirectToPage } from "../../utils";
 
 const Home = ({ items }) => (
-  <Box mx={4}>
+  <>
     <Head>
-      <title>Create Next App</title>
+      <title>Dota Teams</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
@@ -49,7 +49,7 @@ const Home = ({ items }) => (
         </tbody>
       </Table>
     </Card>
-  </Box>
+  </>
 );
 
 Home.getInitialProps = async ctx => {

@@ -1,3 +1,1 @@
-import Error from "../screens/Error";
-
-export default Error;
+export { default } from "../screens/Error";

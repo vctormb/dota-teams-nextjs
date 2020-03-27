@@ -9,3 +9,10 @@ export function redirectToPage(ctx, url) {
 
   return ctx.res.end();
 }
+
+export function secondsToMinAndSec(sec) {
+  const minutes = Math.floor(sec / 60);
+  const seconds = sec - minutes * 60;
+
+  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
