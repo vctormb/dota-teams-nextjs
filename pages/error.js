@@ -1,11 +1,3 @@
-import { Flex, Box, Text, Heading } from "rebass/styled-components";
-
-const Error = () => {
-  return (
-    <Flex justifyContent="center">
-      <Heading color="white">Oops! Something went wrong!</Heading>
-    </Flex>
-  );
-};
+import Error from "../screens/Error";
 
 export default Error;
