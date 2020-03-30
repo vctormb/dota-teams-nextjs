@@ -1,5 +1,6 @@
 import fetch from "../../service";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Flex, Box } from "rebass/styled-components";
 import { redirectToPage } from "../../utils";
 import MatchesTable from "./components/MatchesTable";
@@ -8,6 +9,12 @@ import HeroesPlayedTable from "./components/HeroesPlayedTable";
 import TeamInfoHeader from "./components/TeamInfoHeader";
 
 const Team = ({ teamData, matches }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Head>
@@ -36,8 +43,38 @@ const Team = ({ teamData, matches }) => {
   );
 };
 
-Team.getInitialProps = async ctx => {
-  const { id } = ctx.query;
+export async function getStaticPaths() {
+  try {
+    const response = await fetch('/teams');
+
+    if (!response.ok) {
+      return {
+        paths: [],
+        fallback: true
+      };
+    }
+
+    const json = await response.json();
+
+    const teams = json.filter(team => team.name).slice(0, 20);
+    const paths = teams.map(team => ({
+      params: { id: String(team.team_id) }
+    }));
+
+    return {
+      paths,
+      fallback: true
+    };
+  } catch (error) {
+    return {
+      paths: [],
+      fallback: true
+    };
+  }
+}
+
+export async function getStaticProps(ctx) {
+  const { id } = ctx.params;
 
   try {
     const teamResponse = await fetch(`/teams/${id}`);
@@ -54,12 +91,14 @@ Team.getInitialProps = async ctx => {
     const matchesJson = await matchesResponse.json();
 
     return {
-      teamData: teamJson,
-      matches: matchesJson.slice(0, 20)
+      props: {
+        teamData: teamJson,
+        matches: matchesJson.slice(0, 20)
+      }
     };
   } catch (error) {
     return redirectToPage(ctx, "/error");
   }
-};
+}
 
 export default Team;

@@ -20,6 +20,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${p => p.theme.colors.blue};
   }
 
+  #__next {
+    padding-top: 56px;
+  }
+
   a {
     color: inherit;
     text-decoration: none;
