@@ -10,6 +10,8 @@ const theme = {
     whiteopaque: "rgba(255, 255, 255, 0.6)",
     blue: "#222d4a",
     darkblue: "#162329",
+    purple: "#2a3554",
+    lightPurple: '#3c445d',
     lightblue: "#66bbff",
     green: "#66bb6a",
     red: "#ff4c4c"

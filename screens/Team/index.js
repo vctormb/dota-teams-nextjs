@@ -1,18 +1,27 @@
+import styled from "styled-components";
 import fetch from "../../service";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Flex, Box } from "rebass/styled-components";
 import { redirectToPage } from "../../utils";
+// components
+import SkeletonScreen from "./components/SkeletonScreen";
 import MatchesTable from "./components/MatchesTable";
 import CurrentPlayersTable from "./components/CurrentPlayersTable";
 import HeroesPlayedTable from "./components/HeroesPlayedTable";
 import TeamInfoHeader from "./components/TeamInfoHeader";
 
+const SkeletonTableRow = styled.span`
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 6px;
+`;
+
 const Team = ({ teamData, matches }) => {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <SkeletonScreen />;
   }
 
   return (
@@ -45,7 +54,7 @@ const Team = ({ teamData, matches }) => {
 
 export async function getStaticPaths() {
   try {
-    const response = await fetch('/teams');
+    const response = await fetch("/teams");
 
     if (!response.ok) {
       return {

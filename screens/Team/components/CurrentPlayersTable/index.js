@@ -2,8 +2,11 @@ import { Flex, Box, Text, Card } from "rebass/styled-components";
 import fetch from "../../../../service";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 // components
 import Table from "../../../../components/Table";
+// css
+import theme from "../../../../css/theme";
 
 const fetcher = url => fetch(url).then(r => r.json());
 
@@ -12,7 +15,18 @@ const CurrentPlayersTable = () => {
   const { id } = router.query;
   const { data } = useSWR(`/teams/${id}/players`, fetcher);
 
-  if (!data) return <Box mb={4}>Loading...</Box>;
+  if (!data) {
+    return (
+      <Box mb={4}>
+        <SkeletonTheme
+          highlightColor={theme.colors.purple}
+          color={theme.colors.lightPurple}
+        >
+          <Skeleton count={5} />
+        </SkeletonTheme>
+      </Box>
+    );
+  }
 
   function calcWinrate({ games_played, wins }) {
     return ((wins / games_played) * 100).toFixed(1);

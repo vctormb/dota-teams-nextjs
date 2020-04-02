@@ -2,10 +2,13 @@ import { Flex, Box, Text, Card } from "rebass/styled-components";
 import fetch from "../../../../service";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 // components
 import Table from "../../../../components/Table";
 // utils
 import { calcWinrate } from "../../../../utils";
+// css
+import theme from "../../../../css/theme";
 
 const fetcher = url => fetch(url).then(r => r.json());
 
@@ -21,7 +24,18 @@ const HeroesPlayedTable = () => {
       .toLowerCase();
   }
 
-  if (!data) return <Box mb={4}>Loading...</Box>;
+  if (!data) {
+    return (
+      <Box mb={4}>
+        <SkeletonTheme
+          highlightColor={theme.colors.purple}
+          color={theme.colors.lightPurple}
+        >
+          <Skeleton count={5} />
+        </SkeletonTheme>
+      </Box>
+    );
+  }
 
   return (
     <Box mb={4}>
@@ -49,7 +63,7 @@ const HeroesPlayedTable = () => {
                       src={`https://api.opendota.com/apps/dota2/images/heroes/${toUnderscoreCase(
                         hero.localized_name
                       )}_sb.png`}
-                      alt="Hero"
+                      alt={hero.localized_name}
                     />
                     <Text>{hero.localized_name}</Text>
                   </Flex>
