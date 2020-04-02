@@ -9,6 +9,7 @@ This is a sample app using Next.js 9. It consumes the open dota API using SSG ap
 First, run the development server:
 
 ```bash
+yarn install
 yarn dev
 ```
 
