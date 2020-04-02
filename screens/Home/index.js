@@ -64,7 +64,10 @@ export async function getStaticProps(ctx) {
 
     const json = await response.json();
 
-    return { props: { items: json.filter(team => team.name).slice(0, 100) } };
+    return {
+      revalidate: 300,
+      props: { items: json.filter(team => team.name).slice(0, 100) }
+    };
   } catch (error) {
     return redirectToPage(ctx, "/error");
   }

@@ -1,7 +1,8 @@
 import * as unfetch from "isomorphic-unfetch";
+import { BASE_URL } from "../constants";
 
 function fetch(uri) {
-  return unfetch(`https://api.opendota.com/api${uri}`);
+  return unfetch(`${BASE_URL}${uri}`);
 }
 
 export default fetch;

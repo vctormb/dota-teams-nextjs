@@ -1,7 +1,28 @@
 import { Flex, Box, Text, Card } from "rebass/styled-components";
+import fetch from "../../../../service";
+import useSWR from "swr";
+import { useRouter } from "next/router";
+// components
 import Table from "../../../../components/Table";
+// utils
+import { calcWinrate } from "../../../../utils";
+
+const fetcher = url => fetch(url).then(r => r.json());
 
 const HeroesPlayedTable = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const { data } = useSWR(`/teams/${id}/heroes`, fetcher);
+
+  function toUnderscoreCase(name) {
+    return name
+      .split(" ")
+      .join("_")
+      .toLowerCase();
+  }
+
+  if (!data) return <Box mb={4}>Loading...</Box>;
+
   return (
     <Box mb={4}>
       <Box mb={1}>
@@ -19,23 +40,25 @@ const HeroesPlayedTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 1, 1, 1].map((hero, i) => (
+            {data.slice(0, 10).map((hero, i) => (
               <tr key={i}>
                 <td>
                   <Flex alignItems="center">
                     <img
                       style={{ marginRight: "10px" }}
-                      src="https://api.opendota.com/apps/dota2/images/heroes/earth_spirit_sb.png"
+                      src={`https://api.opendota.com/apps/dota2/images/heroes/${toUnderscoreCase(
+                        hero.localized_name
+                      )}_sb.png`}
                       alt="Hero"
                     />
-                    <Text>Topson</Text>
+                    <Text>{hero.localized_name}</Text>
                   </Flex>
                 </td>
                 <td>
-                  <Text>334</Text>
+                  <Text>{hero.games_played}</Text>
                 </td>
                 <td>
-                  <Text>23.5</Text>
+                  <Text>{calcWinrate(hero)}</Text>
                 </td>
               </tr>
             ))}

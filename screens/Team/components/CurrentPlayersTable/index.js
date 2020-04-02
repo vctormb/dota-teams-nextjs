@@ -1,7 +1,23 @@
 import { Flex, Box, Text, Card } from "rebass/styled-components";
+import fetch from "../../../../service";
+import useSWR from "swr";
+import { useRouter } from "next/router";
+// components
 import Table from "../../../../components/Table";
 
+const fetcher = url => fetch(url).then(r => r.json());
+
 const CurrentPlayersTable = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const { data } = useSWR(`/teams/${id}/players`, fetcher);
+
+  if (!data) return <Box mb={4}>Loading...</Box>;
+
+  function calcWinrate({ games_played, wins }) {
+    return ((wins / games_played) * 100).toFixed(1);
+  }
+
   return (
     <Box mb={4}>
       <Box mb={1}>
@@ -19,28 +35,32 @@ const CurrentPlayersTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 1, 1, 1].map((team, i) => (
-              <tr key={i}>
-                <td>
-                  <Flex alignItems="center">
-                    <img
-                      style={{ marginRight: "10px" }}
-                      width="35px"
-                      height="35px"
-                      src="https://steamcdn-a.akamaihd.net/apps/dota2/images/team_logos/2163.png"
-                      alt="Liquid"
-                    />
-                    <Text>Topson</Text>
-                  </Flex>
-                </td>
-                <td>
-                  <Text>334</Text>
-                </td>
-                <td>
-                  <Text>23.5</Text>
-                </td>
-              </tr>
-            ))}
+            {data
+              .filter(t => t.is_current_team_member)
+              .map((player, i) => {
+                return (
+                  <tr key={i}>
+                    <td>
+                      <Flex alignItems="center">
+                        <img
+                          style={{ marginRight: "10px" }}
+                          width="35px"
+                          height="35px"
+                          src={`https://identicon-api.herokuapp.com/${player.name}/35?format=png`}
+                          alt={player.name}
+                        />
+                        <Text>{player.name}</Text>
+                      </Flex>
+                    </td>
+                    <td>
+                      <Text>{player.games_played}</Text>
+                    </td>
+                    <td>
+                      <Text>{calcWinrate(player)}</Text>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </Table>
       </Card>

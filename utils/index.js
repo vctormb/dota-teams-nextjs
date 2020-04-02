@@ -16,3 +16,7 @@ export function secondsToMinAndSec(sec) {
 
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 }
+
+export function calcWinrate({ games_played, wins }) {
+  return ((wins / games_played) * 100).toFixed(1);
+}

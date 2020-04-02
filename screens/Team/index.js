@@ -91,6 +91,7 @@ export async function getStaticProps(ctx) {
     const matchesJson = await matchesResponse.json();
 
     return {
+      revalidate: 300,
       props: {
         teamData: teamJson,
         matches: matchesJson.slice(0, 20)
